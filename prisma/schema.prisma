@@ -24,7 +24,7 @@ model produto {
 }
 
 model vendas {
-  id_venda   Int     @id(map: "vendas_pk")
+  id_venda   String     @id(map: "vendas_pk")  @default(uuid()) @db.Uuid
   id_produto String  @db.Uuid
   id_user    String  @db.Uuid
   produto    produto @relation(fields: [id_produto], references: [id_produto], onDelete: NoAction, onUpdate: NoAction, map: "produto_venda_fk")
