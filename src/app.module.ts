@@ -2,29 +2,15 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
-import { ConfigModule} from '@nestjs/config'
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from './user/interface/user.entity';
 import { ProdutoService } from './produto/produto.service';
 import { ProdutoController } from './produto/produto.controller';
+import { VendasService } from './vendas/vendas.service';
+import { VendasController } from './vendas/vendas.controller';
 
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      envFilePath: ['.env.development.local']
-    }),
-    TypeOrmModule.forRoot({
-      type:'postgres',
-      database:process.env.DB_DATABASE,
-      host:process.env.DB_HOST,
-      password:process.env.DB_PASSWORD,
-      port:Number(process.env.DB_PORT),
-      username:process.env.DB_USERNAME,
-      entities:[`${__dirname}/**/*.entity{.js,.ts}`]
-    })
-    ,UserModule],
-  controllers: [AppController, ProdutoController],
-  providers: [AppService, ProdutoService],
+  imports: [UserModule],
+  controllers: [AppController, ProdutoController, VendasController],
+  providers: [AppService, ProdutoService, VendasService],
 })
 export class AppModule {}
