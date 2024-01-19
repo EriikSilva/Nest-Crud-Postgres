@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id       Int      @id(map: "PK_cace4a159ff9f2512dd42373760") @default(autoincrement())
+  name     String   @db.VarChar
+  email    String   @db.VarChar
+  phone    String   @db.VarChar
+  cpf      String   @db.VarChar
+  password String   @db.VarChar
+  vendas   vendas[]
+}
+
+model produto {
+  id_produto Int      @id(map: "produto_pk") @default(autoincrement())
+  nome       String   @db.VarChar
+  vendas     vendas[]
+}
+
+model vendas {
+  id_venda   Int     @id(map: "vendas_pk")
+  id_produto Int
+  id_user    Int
+  produto    produto @relation(fields: [id_produto], references: [id_produto], onDelete: NoAction, onUpdate: NoAction, map: "produto_venda_fk")
+  user       user    @relation(fields: [id_user], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_venda_fk")
+}
