@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateUserDTO } from './DTOS/userDTO';
 
 import { hash } from 'bcrypt';
@@ -6,25 +6,29 @@ import db from 'src/database/prisma';
 
 @Injectable()
 export class UserService {
-    
-    constructor(){}
+  constructor() {}
 
+  async createUser(createUserDTO: CreateUserDTO) {
+    const { email } = createUserDTO;
+    const saltOrRounds = 10;
+    const hashPassword = await hash(createUserDTO.password, saltOrRounds);
 
-    async createUser(createUserDTO:CreateUserDTO){
-        const saltOrRounds = 10;
+    const existingUser = await db.user.findUnique({
+      where: { email },
+    });
 
-        const hashPassword = await hash(createUserDTO.password, saltOrRounds);
-
-        return await db.user.create({
-         data:{
-            ...createUserDTO,
-            password:hashPassword
-         }
-        })
+    if (existingUser) {
+      throw new ConflictException('E-mail já registrado');
     }
+    return await db.user.create({
+      data: {
+        ...createUserDTO,
+        password: hashPassword,
+      },
+    });
+  }
 
-    async getAllUsers(){
-        return await db.user.findMany();
-    }
+  async getAllUsers() {
+    return await db.user.findMany();
+  }
 }
-
