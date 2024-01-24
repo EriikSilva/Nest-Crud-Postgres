@@ -1,6 +1,10 @@
 
 # Nest Vendas
 
+## 📰 Sobre
+O projeto Nest-Vendas é uma aplicação construída usando o framework Nest.js e incorporando o Prisma como ORM para interagir com o banco de dados. O objetivo principal desta aplicação é gerenciar informações relacionadas a vendas, produtos e usuários por meio de três tabelas principais
+
+
 # 💾 Instalação
 - Necessario Node e NestJS
 - Clonar o projeto ```git clone https://github.com/EriikSilva/Nest-Vendas.git```
@@ -9,8 +13,6 @@
 - Rodar o Schema do banco ```npx prisma db push``` e logo após ```npm run migrate-and-seed``` para rodar a seed de usuários, produtos e vendas.
 - Rodar o projeto com o comando no terminal ```npm run start:dev``` e acessar ```http://localhost:3000```
 
-## 📰 Sobre
-O projeto Nest-Vendas é uma aplicação construída usando o framework Nest.js e incorporando o Prisma como ORM para interagir com o banco de dados. O objetivo principal desta aplicação é gerenciar informações relacionadas a vendas, produtos e usuários por meio de três tabelas principais
 
 # 📃 Tabela(s)
 <img src="https://github.com/EriikSilva/Nest-Vendas/assets/61124602/faf1402c-9368-41a9-92b7-40fbb3e3f991" />
